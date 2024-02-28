@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="MyTestSuite" parallel="methods" thread-count="4">
+    <listeners>
+        <listener class-name="" />
+    </listeners>
+    <test name="MyTestClass">
+        <classes>
+            <class name=""/>
+        </classes>
+    </test>
+</suite>
