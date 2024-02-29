@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class WaitHelper extends WebDriverWait {
     public WaitHelper(WebDriver driver, Duration timeout) {
@@ -18,6 +19,10 @@ public class WaitHelper extends WebDriverWait {
     public static void waitTillElementAppears(WebElement element) {
         waitHelper.until(ExpectedConditions.visibilityOfAllElements(element));
 
+    }
+
+    public static void waitTillElementsAppears(List<WebElement> elements) {
+        waitHelper.until(ExpectedConditions.visibilityOfAllElements(elements));
     }
 
     public static boolean waitTillElementVisible(WebElement element) {

@@ -1,5 +1,6 @@
 package Pages;
 
+import WaitManager.WaitHelper;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -17,8 +18,9 @@ public class HomePage extends BasePage {
 
     @Override
     protected void isLoaded() {
-        waitTillElementAppears(carouselIndicator);
-        waitTillElementAppears(featuresItems);
+        if (!WaitHelper.waitTillElementVisible(carouselIndicator) || !WaitHelper.waitTillElementVisible(featuresItems)) {
+            throw new Error("Home page was not opened");
+        }
     }
 
     @Override

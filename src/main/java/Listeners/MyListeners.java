@@ -1,6 +1,7 @@
 package Listeners;
 
 import DriverManager.DriverHelper;
+import Utils.ScreenshotUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.ITestContext;
@@ -24,11 +25,14 @@ public class MyListeners implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
         ITestListener.super.onTestFailure(result);
+        ScreenshotUtils.captureAndSaveScreenshot();
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
         ITestListener.super.onTestSkipped(result);
+        ScreenshotUtils.captureAndSaveScreenshot();
+
     }
 
     @Override

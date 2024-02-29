@@ -1,5 +1,6 @@
 package Pages;
 
+import Utils.RandomTextUtils;
 import WaitManager.WaitHelper;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -25,6 +26,13 @@ public class LoginAndSignUpPage extends BasePage {
     @FindBy(css = "[data-qa=\"signup-email\"]")
     private WebElement email;
 
+    @FindBy(css = "[data-qa=\"login-email\"]")
+    WebElement loginEmail;
+
+
+    @FindBy(css = "[data-qa=\"login-password\"]")
+    WebElement loginPassword;
+
     @Override
     protected void isLoaded() throws Error {
         if (!WaitHelper.waitTillElementVisible(loginButton) || !WaitHelper.waitTillElementVisible(signUpButton)) {
@@ -48,19 +56,35 @@ public class LoginAndSignUpPage extends BasePage {
         return null;
     }
 
-    public LoginAndSignUpPage writeName(String text) {
-        writeText(name, text);
-        return this;
+    public String writeRandomName() {
+        String nameRandom = RandomTextUtils.generateRandomText();
+        writeText(name, nameRandom);
+        return nameRandom;
     }
 
-    public LoginAndSignUpPage writeEmail(String text) {
-        writeText(email, text);
-        return this;
+    public String writeRandomEmail() {
+        String emailText = RandomTextUtils.generateRandomText() + "@gmail.com";
+        writeText(email, emailText);
+        return emailText;
     }
 
     public SignUpPage clickSignUpButton() {
         clickOnElement(signUpButton);
         return new SignUpPage().init();
+    }
+
+    public LoginAndSignUpPage writeEmail(String email) {
+        writeText(loginEmail, email);
+        return this;
+    }
+
+    public LoginAndSignUpPage writePassword(String password) {
+        writeText(loginPassword, password);
+        return this;
+    }
+
+    public void clickLoginButton() {
+        clickOnElement(loginButton);
     }
 
     public String getSignUpText() {
