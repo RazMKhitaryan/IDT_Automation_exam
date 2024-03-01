@@ -2,6 +2,7 @@ package DriverManager;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -14,104 +15,92 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 
-
 public class DriverHelper {
 
-    static DriverHelper driverHelper = new DriverHelper();
+    private static final Logger LOGGER = LogManager.getLogger(DriverHelper.class);
 
-    public static DriverHelper getInstance() {
+    private static final DriverHelper driverHelper = new DriverHelper();
 
-        return driverHelper;
+    private static final ThreadLocal<WebDriver> threadLocal = new ThreadLocal<>();
+
+    private static final Properties properties = new Properties();
+
+    private static final String BROWSER;
+    private static final String BASE_URL;
+
+    static {
+        try (InputStream inputStream = DriverHelper.class.getClassLoader().getResourceAsStream("config.properties")) {
+            properties.load(inputStream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        BROWSER = properties.getProperty("BrowserType");
+        BASE_URL = properties.getProperty("BaseUrl");
     }
 
     private DriverHelper() {
 
     }
 
-    private static WebDriver driver;
-
-    private static ThreadLocal<WebDriver> threadLocal = new ThreadLocal<>();
-
-    Properties properties = new Properties();
-
-    InputStream inputStream;
-
-
-    private static final Logger LOGGER = LogManager.getLogger(DriverHelper.class);
-
-
-    {
-
-        inputStream = getClass().getClassLoader().getResourceAsStream("config.properties");
-        try {
-            properties.load(inputStream);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+    public static DriverHelper getInstance() {
+        return driverHelper;
     }
-
-    private final String BROWSER = properties.getProperty("BrowserType");
-
 
     public WebDriver getDriver() {
         if (threadLocal.get() == null) {
             switch (BROWSER) {
                 case "chrome":
                     System.setProperty("webdriver.chrome.driver", "chromedriver");
-                    driver = new ChromeDriver(DriverOptions.chromeOptions());
-                    threadLocal.set(driver);
-                    LOGGER.info("creating chrome driver-------------->");
+                    WebDriver chromeDriver = new ChromeDriver(DriverOptions.chromeOptions());
+                    threadLocal.set(chromeDriver);
+                    LOGGER.info("Creating chrome driver -------------->");
                     break;
 
                 case "remote chrome":
                     String hubUrl = "http://localhost:4445/wd/hub";
                     DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-
                     desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, DriverOptions.chromeOptions());
 
                     try {
-                        driver = new RemoteWebDriver(new URL(hubUrl), desiredCapabilities);
-                        // driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-                        threadLocal.set(driver);
-                        LOGGER.info("creating remote chrome driver-------------->");
-
-                        break;
+                        WebDriver remoteChromeDriver = new RemoteWebDriver(new URL(hubUrl), desiredCapabilities);
+                        threadLocal.set(remoteChromeDriver);
+                        LOGGER.info("Creating remote chrome driver -------------->");
                     } catch (MalformedURLException e) {
                         throw new RuntimeException(e);
                     }
+                    break;
 
                 case "remote firefox":
-
                     hubUrl = "http://localhost:4445/wd/hub";
                     desiredCapabilities = new DesiredCapabilities();
-
                     desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, DriverOptions.firefoxOptions());
 
                     try {
-                        driver = new RemoteWebDriver(new URL(hubUrl), desiredCapabilities);
-                        //  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-                        threadLocal.set(driver);
-                        LOGGER.info("creating remote firefox driver-------------->");
-
-                        break;
+                        WebDriver remoteFirefoxDriver = new RemoteWebDriver(new URL(hubUrl), desiredCapabilities);
+                        threadLocal.set(remoteFirefoxDriver);
+                        LOGGER.info("Creating remote firefox driver -------------->");
                     } catch (MalformedURLException e) {
                         throw new RuntimeException(e);
                     }
-
+                    break;
             }
         }
         return threadLocal.get();
-
     }
 
-    public static synchronized void killDriver() {
-        if (threadLocal.get() != null) {
+    public static void setup() {
+        WebDriver driver = getInstance().getDriver();
+        driver.get(BASE_URL);
+        LOGGER.info("Opening the URL ----> " + BASE_URL);
+        driver.manage().window().setSize(new Dimension(1900, 1200));
+    }
+
+    public static void killDriver() {
+        WebDriver driverInstance = threadLocal.get();
+        if (driverInstance != null) {
+            driverInstance.quit();
             threadLocal.remove();
         }
-        if (driver != null) {
-            driver.quit();
-        }
     }
-
 }

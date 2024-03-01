@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class AutomationExerciseTest extends TestBase {
 
-    @BeforeMethod(groups = "login")
+    @BeforeMethod(onlyForGroups = "login")
     public void createUser() {
         userCreateHelper();
     }
@@ -19,19 +19,19 @@ public class AutomationExerciseTest extends TestBase {
     @Test(description = "account creation,login, and delete functionality")
     public void RegisterUserTest() {
         SoftAssert softAssert = new SoftAssert();
-        HomePage homePage = new HomePage();
-        homePage.init();
+        softAssert.assertTrue(new HomePage().init().isHomePageVisible(),"The home page was not displayed");
+
         HeaderComponent headerComponent = new HeaderComponent();
         LoginAndSignUpPage loginAndSignUpPage = headerComponent.init().clickOnSignUpLogin();
         softAssert.assertTrue(loginAndSignUpPage.getSignUpText().contains("New User Signup!"), "The 'New User Signup!' text was not displayed ");
 
         String username = loginAndSignUpPage.writeRandomName();
-        String email = loginAndSignUpPage.writeRandomEmail();
+        loginAndSignUpPage.writeRandomEmail();
         SignUpPage signUpPage = loginAndSignUpPage.clickSignUpButton();
 
         softAssert.assertEquals(signUpPage.getAccountInformationText(), "ENTER ACCOUNT INFORMATION", "The 'ENTER ACCOUNT INFORMATION' text was not displayed");
 
-        String password = signUpPage.writeRandomPassword();
+        signUpPage.writeRandomPassword();
         AccountCreatedPage accountCreatedPage = signUpPage
                 .writeRandomDayOfBirth(1, 30)
                 .writeRandomMonthOfBirth()
@@ -64,10 +64,10 @@ public class AutomationExerciseTest extends TestBase {
 
     @Test(description = "product searching logic verification")
     public void searchProductTest() {
-        new HomePage().init();
         SoftAssert softAssert = new SoftAssert();
-        ProductsPage productsPage = new HeaderComponent().init().clickOnProducts();
+        softAssert.assertTrue(new HomePage().init().isHomePageVisible(),"The home page was not displayed");
 
+        ProductsPage productsPage = new HeaderComponent().init().clickOnProducts();
         softAssert.assertEquals(productsPage.getAllProductsText(), "ALL PRODUCTS", "'ALL PRODUCTS' text was not displayed");
 
         String color = "blue";
@@ -84,7 +84,8 @@ public class AutomationExerciseTest extends TestBase {
     public void loginAndBuyProduct() {
         SoftAssert softAssert = new SoftAssert();
         String username = loginHelper();
-        new HomePage().init();
+        softAssert.assertTrue(new HomePage().init().isHomePageVisible(),"The home page was not displayed");
+
         HeaderComponent headerComponent = new HeaderComponent().init();
         softAssert.assertTrue(headerComponent.getNavBarText().contains("Logged in as " + username), " 'Logged in as username' was not displayed");
         softAssert.assertAll();
@@ -93,7 +94,15 @@ public class AutomationExerciseTest extends TestBase {
     }
 
 
+
+
+
+
+
+
+
     //-------------Helpers-----------
+    //-------------------------------
     public void userCreateHelper() {
         HeaderComponent headerComponent = new HeaderComponent().init();
         LoginAndSignUpPage loginAndSignUpPage = headerComponent.clickOnSignUpLogin();

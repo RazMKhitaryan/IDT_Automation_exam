@@ -1,5 +1,6 @@
 package Pages;
 
+import ActionsHelper.Actions;
 import WaitManager.WaitHelper;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -38,6 +39,10 @@ public class HomePage extends BasePage {
     @Override
     public HomePage openScreen() {
         return null;
+    }
+
+    public boolean isHomePageVisible() {
+        return Actions.isElementDisplayed(carouselIndicator);
     }
 
 

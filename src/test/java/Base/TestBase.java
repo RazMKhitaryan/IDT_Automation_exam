@@ -13,41 +13,18 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import static DriverManager.DriverHelper.killDriver;
+import static DriverManager.DriverHelper.setup;
 
 public class TestBase {
-    private static final Logger LOGGER = LogManager.getLogger(DriverHelper.class);
-
-    private WebDriver driver = DriverHelper.getInstance().getDriver();
-
-    Properties properties = new Properties();
-
-    InputStream inputStream;
-
-
-    {
-
-        inputStream = getClass().getClassLoader().getResourceAsStream("config.properties");
-        try {
-            properties.load(inputStream);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    private final String BASE_URL = properties.getProperty("BaseUrl");
-
 
     @BeforeMethod
     public void startDriver() {
-        driver.get(BASE_URL);
-        LOGGER.info("Opening the url ----> " + BASE_URL);
-        driver.manage().window().setSize(new Dimension(1900, 1200));
+        setup();
     }
 
 
     @AfterMethod
-    protected void tearDown() {
+    protected synchronized void tearDown() {
         killDriver();
     }
 }
