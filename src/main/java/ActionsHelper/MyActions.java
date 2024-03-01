@@ -54,7 +54,6 @@ public abstract class MyActions {
         // Check if all words from the modified string are present in the first string
         for (String word : secondString) {
             if (!word.isEmpty() && !firstString.contains(word)) {
-                System.out.println(word);
                 return false;
             }
         }

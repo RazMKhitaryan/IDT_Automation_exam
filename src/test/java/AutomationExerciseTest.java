@@ -96,7 +96,6 @@ public class AutomationExerciseTest extends TestBase {
         softAssert.assertTrue(headerComponent.getNavBarText().contains("Logged in as " + userObject.getUsername()), " 'Logged in as username' was not displayed");
 
         String[] productInfo = homePage.clickOnAddToCardButton(3).getProductInfo(1);
-
         homePage.clickContinueShoppingButton();
         CartPage cartPage = headerComponent.clickOnCartButton();
 
@@ -104,11 +103,22 @@ public class AutomationExerciseTest extends TestBase {
         CheckoutPage checkoutPage = cartPage.clockOnProceedToCheckout();
 
         softAssert.assertTrue(containsAllWords(userObject.toString(), checkoutPage.getAddressDeliveryTextAsString()), "the information was wrong in address text");
-
         softAssert.assertTrue(containsAllWords(checkoutPage.extractProductDetails(), productInfo), "the information about added products is wrong");
+
+        PaymentPage paymentPage = checkoutPage.writeComment()
+                .clickOnPlaceOrder()
+                .writeNameOnCard()
+                .writeCardNumber()
+                .writeCVC()
+                .selectExpiryMonth()
+                .selectExpiryYear()
+                .clickPayButton();
+
+        softAssert.assertEquals(paymentPage.getPaymentMessage().getText(),"Congratulations! Your order has been confirmed!" ,"The payment success message was not displayed");
+        headerComponent.clickDeleteAccount();
+
+        softAssert.assertEquals(new DeleteAccountPage().init().getAccountDeletedText(), "ACCOUNT DELETED!", "'Account Deleted!' text was not displayed");
         softAssert.assertAll();
-
-
     }
 
 

@@ -1,6 +1,7 @@
 package Pages;
 
 import Pages.Base.BasePage;
+import Utils.RandomTextUtils;
 import WaitManager.WaitHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -10,24 +11,11 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ActionsHelper.MyActions.*;
+
 public class CheckoutPage extends BasePage {
     @FindBy(css = "[class=\"btn btn-default check_out\"]")
     WebElement placeOrder;
-
-    @FindBy(css = "[class=\"address_firstname address_lastname\"]")
-    List<WebElement> firstnameLastname;
-
-    @FindBy(css = "[class=\"address_address1 address_address2\"]")
-    List<WebElement> companyAddressAddress2;
-
-    @FindBy(css = "[class=\"address_city address_state_name address_postcode\"]")
-    List<WebElement> cityStateZipcode;
-
-    @FindBy(css = "[class=\"address_country_name\"]")
-    List<WebElement> country;
-
-    @FindBy(css = "[class=\"address_phone\"]")
-    List<WebElement> phone;
 
     @FindBy(id = "address_delivery")
     WebElement addressDelivery;
@@ -35,6 +23,8 @@ public class CheckoutPage extends BasePage {
     @FindBy(id = "cart_info")
     WebElement cardInfo;
 
+    @FindBy(css = "[class=\"form-control\"]")
+    WebElement commentArea;
 
     @Override
     public String getUrl() {
@@ -105,6 +95,16 @@ public class CheckoutPage extends BasePage {
 
         // Return the modified string
         return wordsToCheck;
+    }
+
+    public CheckoutPage writeComment(){
+        writeText(commentArea, RandomTextUtils.generateRandomText());
+        return this;
+    }
+
+    public PaymentPage clickOnPlaceOrder(){
+        clickOnElement(placeOrder);
+        return new PaymentPage().init();
     }
 }
 
