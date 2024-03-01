@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import static ActionsHelper.MyActions.clickOnElement;
+import static Helpers.ActionsHelper.clickOnElement;
 
 public class DeleteAccountPage extends BasePage {
 
@@ -44,7 +44,7 @@ public class DeleteAccountPage extends BasePage {
         return accountDeleted.getText();
     }
 
-    public void clickContinueButton(){
+    public void clickContinueButton() {
         clickOnElement(continueButton);
     }
 

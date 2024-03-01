@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-import static ActionsHelper.MyActions.*;
+import static Helpers.ActionsHelper.*;
 
 public class HomePage extends BasePage {
 

@@ -1,6 +1,6 @@
 package Pages;
 
-import ActionsHelper.MyActions;
+import Helpers.ActionsHelper;
 import Pages.Base.BasePage;
 import WaitManager.WaitHelper;
 import org.openqa.selenium.WebElement;
@@ -8,6 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
+
+import static Helpers.ActionsHelper.areRightElementsDisplayed;
 
 public class SearchPage extends BasePage {
     @FindBy(css = "[class=\"title text-center\"]")
@@ -40,7 +42,7 @@ public class SearchPage extends BasePage {
     }
 
     public boolean areSearchedElementsDisplayedRight(String text) {
-        return MyActions.areRightElementsDisplayed(searchedProductsList, text);
+        return areRightElementsDisplayed(searchedProductsList, text);
 
     }
 

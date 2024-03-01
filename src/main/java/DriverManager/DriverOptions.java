@@ -11,12 +11,12 @@ public class DriverOptions {
         ChromeOptions options = new ChromeOptions();
         WebDriverManager.chromedriver().setup();
         options.addArguments("--disable-web-security", "--no-sandbox", "--disable-dev-shm-usage");
-      //  options.addArguments("--headless");
+        //  options.addArguments("--headless");
         options.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
         return options;
     }
 
-    public static FirefoxOptions firefoxOptions(){
+    public static FirefoxOptions firefoxOptions() {
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         WebDriverManager.firefoxdriver().setup();
         firefoxOptions.addArguments("--headless");

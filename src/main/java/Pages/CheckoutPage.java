@@ -11,7 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ActionsHelper.MyActions.*;
+import static Helpers.ActionsHelper.*;
 
 public class CheckoutPage extends BasePage {
     @FindBy(css = "[class=\"btn btn-default check_out\"]")
@@ -97,12 +97,12 @@ public class CheckoutPage extends BasePage {
         return wordsToCheck;
     }
 
-    public CheckoutPage writeComment(){
+    public CheckoutPage writeComment() {
         writeText(commentArea, RandomTextUtils.generateRandomText());
         return this;
     }
 
-    public PaymentPage clickOnPlaceOrder(){
+    public PaymentPage clickOnPlaceOrder() {
         clickOnElement(placeOrder);
         return new PaymentPage().init();
     }

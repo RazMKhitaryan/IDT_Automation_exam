@@ -1,6 +1,6 @@
 package Utils;
 
-import ActionsHelper.UserObject;
+import Helpers.UserObject;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

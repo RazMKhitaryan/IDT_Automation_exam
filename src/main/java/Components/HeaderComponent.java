@@ -1,6 +1,5 @@
 package Components;
 
-import ActionsHelper.MyActions;
 import Pages.CartPage;
 import Pages.DeleteAccountPage;
 import Pages.ProductsPage;
@@ -10,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import static ActionsHelper.MyActions.*;
+import static Helpers.ActionsHelper.*;
 
 public class HeaderComponent extends BaseComponent {
 
@@ -19,7 +18,6 @@ public class HeaderComponent extends BaseComponent {
 
     @FindBy(css = "[class=\"fa fa-home\"]")
     WebElement homeButton;
-
 
     @FindBy(css = "[class=\"fa fa-lock\"]")
     WebElement signUpLoginButton;

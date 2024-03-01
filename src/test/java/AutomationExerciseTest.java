@@ -1,7 +1,6 @@
-import ActionsHelper.CreateUserHelper;
-import ActionsHelper.LoginHelper;
-import ActionsHelper.MyActions;
-import ActionsHelper.UserObject;
+import Helpers.CreateUserHelper;
+import Helpers.LoginHelper;
+import Helpers.UserObject;
 import Base.TestBase;
 import Components.HeaderComponent;
 import Pages.*;
@@ -10,7 +9,7 @@ import org.testng.asserts.SoftAssert;
 
 import org.testng.annotations.Test;
 
-import static ActionsHelper.MyActions.*;
+import static Helpers.ActionsHelper.containsAllWords;
 
 
 public class AutomationExerciseTest extends TestBase {

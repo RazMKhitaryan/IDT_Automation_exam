@@ -6,15 +6,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import static ActionsHelper.MyActions.clickOnElement;
+import static Helpers.ActionsHelper.clickOnElement;
 
 public class AccountCreatedPage extends BasePage {
 
     @FindBy(css = "[data-qa=\"account-created\"]")
-    WebElement  accountCreated;
+    WebElement accountCreated;
 
     @FindBy(css = "[data-qa=\"continue-button\"]")
-    WebElement  continueButton;
+    WebElement continueButton;
+
     @Override
     protected void isLoaded() throws Error {
         if (!WaitHelper.waitTillElementVisible(accountCreated) || !WaitHelper.waitTillElementVisible(continueButton)) {
@@ -38,7 +39,7 @@ public class AccountCreatedPage extends BasePage {
         return null;
     }
 
-    public void clickContinueButton(){
+    public void clickContinueButton() {
         clickOnElement(continueButton);
     }
 

@@ -6,6 +6,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -57,6 +58,13 @@ public class DriverHelper {
                     LOGGER.info("Creating chrome driver -------------->");
                     break;
 
+                case "firefox":
+                    System.setProperty("webdriver.chrome.driver", "chromedriver");
+                    WebDriver firefoxDriver = new FirefoxDriver(DriverOptions.firefoxOptions());
+                    threadLocal.set(firefoxDriver);
+                    LOGGER.info("Creating firefox driver -------------->");
+                    break;
+
                 case "remote chrome":
                     String hubUrl = "http://localhost:4445/wd/hub";
                     DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
@@ -84,6 +92,9 @@ public class DriverHelper {
                         throw new RuntimeException(e);
                     }
                     break;
+
+                default:
+                    throw new Error("Write chrome, firefox, remote chrome , remote firefox");
             }
         }
         return threadLocal.get();

@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import static ActionsHelper.MyActions.*;
+import static Helpers.ActionsHelper.*;
 
 
 public class LoginAndSignUpPage extends BasePage {

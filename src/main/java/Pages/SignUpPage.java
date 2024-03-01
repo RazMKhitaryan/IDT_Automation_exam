@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-import static ActionsHelper.MyActions.*;
+import static Helpers.ActionsHelper.*;
 import static Utils.RandomTextUtils.*;
 
 public class SignUpPage extends BasePage {
@@ -153,31 +153,31 @@ public class SignUpPage extends BasePage {
     }
 
     public String writeRandomFirstName() {
-        String firstNameText = "fr"+generateRandomText();
+        String firstNameText = "fr" + generateRandomText();
         writeText(firstName, firstNameText);
         return firstNameText;
     }
 
     public String writeRandomLastName() {
-        String lastNameText = "la"+generateRandomText();
+        String lastNameText = "la" + generateRandomText();
         writeText(lastName, lastNameText);
         return lastNameText;
     }
 
     public String writeRandomCompany() {
-        String companyText = "co"+generateRandomText();
+        String companyText = "co" + generateRandomText();
         writeText(company, companyText);
         return companyText;
     }
 
     public String writeRandomAddress() {
-        String addressText = "a1"+generateRandomText();
+        String addressText = "a1" + generateRandomText();
         writeText(address, addressText);
         return addressText;
     }
 
     public String writeRandomAddress2() {
-        String address2Text = "a2"+generateRandomText();
+        String address2Text = "a2" + generateRandomText();
         writeText(address2, address2Text);
         return address2Text;
     }
@@ -189,13 +189,13 @@ public class SignUpPage extends BasePage {
     }
 
     public String writeRandomState() {
-        String stateText = "state"+generateRandomText();
+        String stateText = "state" + generateRandomText();
         writeText(state, stateText);
         return stateText;
     }
 
     public String writeRandomCity() {
-        String cityText = "city"+generateRandomText();
+        String cityText = "city" + generateRandomText();
         writeText(city, cityText);
         return cityText;
     }
@@ -213,7 +213,7 @@ public class SignUpPage extends BasePage {
     }
 
     public AccountCreatedPage clickCreateAccountButton() {
-        createAccountButton.click();
+        clickOnElement(createAccountButton);
         return new AccountCreatedPage().init();
     }
 

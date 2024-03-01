@@ -1,13 +1,11 @@
 package Pages;
 
+import Helpers.ActionsHelper;
 import Pages.Base.BasePage;
 import WaitManager.WaitHelper;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import static ActionsHelper.MyActions.clickOnElement;
-import static ActionsHelper.MyActions.writeText;
 
 public class ProductsPage extends BasePage {
     @FindBy(css = "[class=\"title text-center\"]")
@@ -46,13 +44,13 @@ public class ProductsPage extends BasePage {
         return allProductsText.getText();
     }
 
-    public SearchPage clickSearchButton(){
-        clickOnElement(searchButton);
+    public SearchPage clickSearchButton() {
+        ActionsHelper.clickOnElement(searchButton);
         return new SearchPage().init();
     }
 
     public ProductsPage searchProduct(String text) {
-        writeText(searchInput,text);
+        ActionsHelper.writeText(searchInput, text);
         return this;
     }
 }

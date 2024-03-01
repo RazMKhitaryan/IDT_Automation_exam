@@ -1,6 +1,5 @@
 package Pages;
 
-import ActionsHelper.MyActions;
 import Pages.Base.BasePage;
 import Utils.RandomTextUtils;
 import WaitManager.WaitHelper;
@@ -8,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import static ActionsHelper.MyActions.*;
+import static Helpers.ActionsHelper.*;
 
 public class PaymentPage extends BasePage {
 
@@ -83,7 +82,7 @@ public class PaymentPage extends BasePage {
 
     public PaymentPage clickPayButton() {
         clickOnElement(payButton);
-       return this.init();
+        return this.init();
     }
 
 
