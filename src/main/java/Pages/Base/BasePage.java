@@ -1,4 +1,4 @@
-package Pages;
+package Pages.Base;
 
 import DriverManager.DriverHelper;
 import org.apache.logging.log4j.LogManager;

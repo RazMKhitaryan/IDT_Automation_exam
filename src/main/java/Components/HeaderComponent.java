@@ -1,6 +1,7 @@
 package Components;
 
-import ActionsHelper.Actions;
+import ActionsHelper.MyActions;
+import Pages.CartPage;
 import Pages.DeleteAccountPage;
 import Pages.ProductsPage;
 import WaitManager.WaitHelper;
@@ -8,6 +9,8 @@ import Pages.LoginAndSignUpPage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import static ActionsHelper.MyActions.*;
 
 public class HeaderComponent extends BaseComponent {
 
@@ -30,6 +33,9 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(css = "[class=\"fa fa-lock\"]")
     WebElement logout;
 
+    @FindBy(css = "[class=\"fa fa-shopping-cart\"]")
+    WebElement cartButton;
+
     @Override
     protected void isLoaded() throws Error {
         WaitHelper.waitTillElementAppears(topNavigationBar);
@@ -42,7 +48,7 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public LoginAndSignUpPage clickOnSignUpLogin() {
-        Actions.clickOnElement(signUpLoginButton);
+        clickOnElement(signUpLoginButton);
         return new LoginAndSignUpPage().init();
     }
 
@@ -51,15 +57,22 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public DeleteAccountPage clickDeleteAccount() {
-        Actions.clickOnElement(deleteAccount);
+        clickOnElement(deleteAccount);
         return new DeleteAccountPage().init();
     }
 
     public ProductsPage clickOnProducts() {
-        Actions.clickOnElement(products);
+        clickOnElement(products);
         return new ProductsPage().init();
     }
+
     public void clickOnLogout() {
-        Actions.clickOnElement(logout);
+        clickOnElement(logout);
     }
+
+    public CartPage clickOnCartButton() {
+        clickOnElement(cartButton);
+        return new CartPage().init();
+    }
+
 }

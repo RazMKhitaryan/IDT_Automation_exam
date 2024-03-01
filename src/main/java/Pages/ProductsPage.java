@@ -1,13 +1,13 @@
 package Pages;
 
+import Pages.Base.BasePage;
 import WaitManager.WaitHelper;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import static ActionsHelper.Actions.clickOnElement;
-import static ActionsHelper.Actions.writeText;
-import static Utils.RandomTextUtils.generateRandomNumber;
+import static ActionsHelper.MyActions.clickOnElement;
+import static ActionsHelper.MyActions.writeText;
 
 public class ProductsPage extends BasePage {
     @FindBy(css = "[class=\"title text-center\"]")

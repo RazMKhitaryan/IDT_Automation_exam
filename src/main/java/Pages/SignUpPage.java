@@ -1,6 +1,6 @@
 package Pages;
 
-import Utils.RandomTextUtils;
+import Pages.Base.BasePage;
 import WaitManager.WaitHelper;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-import static ActionsHelper.Actions.*;
+import static ActionsHelper.MyActions.*;
 import static Utils.RandomTextUtils.*;
 
 public class SignUpPage extends BasePage {
@@ -80,7 +80,7 @@ public class SignUpPage extends BasePage {
     WebElement createAccountButton;
 
     @Override
-    protected void isLoaded()  {
+    protected void isLoaded() {
         if (!WaitHelper.waitTillElementVisible(mrGender) || !WaitHelper.waitTillElementVisible(msGender)) {
             throw new Error("Login and SignUp page is not fully loaded.");
         }
@@ -108,97 +108,108 @@ public class SignUpPage extends BasePage {
     }
 
 
-    public SignUpPage chooseMrGender(){
+    public String chooseMrGender() {
         clickOnElement(mrGender);
-        return this;
+        return "Mr";
     }
 
-    public SignUpPage chooseMsGender(){
+    public String chooseMsGender() {
         clickOnElement(msGender);
-        return this;
+        return "Ms";
     }
 
-
-    public String  writeRandomPassword(){
-        String passwordText = generateRandomText();
+    public String writeRandomPassword() {
+        String passwordText = "pass" + generateRandomText();
         writeText(password, passwordText);
         return passwordText;
     }
 
-    public SignUpPage writeRandomDayOfBirth(int min , int max){
-        writeText(dayOfBirth, String.valueOf(generateRandomNumber(min,max)));
-        return this;
+    public String writeRandomDayOfBirth(int min, int max) {
+        String dayOfBirthText = String.valueOf(generateRandomNumber(min, max));
+        writeText(dayOfBirth, dayOfBirthText);
+        return dayOfBirthText;
     }
 
-    public SignUpPage writeRandomMonthOfBirth(){
-        writeText(monthOfBirth,generateRandomMonth());
-        return this;
+    public String writeRandomMonthOfBirth() {
+        String monthOfBirthText = generateRandomMonth();
+        writeText(monthOfBirth, monthOfBirthText);
+        return monthOfBirthText;
     }
 
-    public SignUpPage writeRandomYearOfBirth(int min, int max ){
-        writeText(yearOfBirth,String.valueOf(generateRandomNumber(min,max)));
-        return this;
+    public String writeRandomYearOfBirth(int min, int max) {
+        String yearOfBirthText = String.valueOf(generateRandomNumber(min, max));
+        writeText(yearOfBirth, yearOfBirthText);
+        return yearOfBirthText;
     }
 
-
-    public SignUpPage clickNewsLetterCheckBox(){
+    public String clickNewsLetterCheckBox() {
         clickOnElement(newsLetterCheckBox);
-        return this;
+        return "Newsletter checkbox clicked";
     }
 
-    public SignUpPage clickReceiveOfferCheckBox(){
+    public String clickReceiveOfferCheckBox() {
         clickOnElement(receiveOfferCheckBox);
-        return this;
+        return "Receive Offer checkbox clicked";
     }
 
-    public SignUpPage writeRandomFirstName() {
-        writeText(firstName, generateRandomText());
-        return this;
+    public String writeRandomFirstName() {
+        String firstNameText = "fr"+generateRandomText();
+        writeText(firstName, firstNameText);
+        return firstNameText;
     }
 
-    public SignUpPage writeRandomLastName() {
-        writeText(lastName, generateRandomText());
-        return this;
+    public String writeRandomLastName() {
+        String lastNameText = "la"+generateRandomText();
+        writeText(lastName, lastNameText);
+        return lastNameText;
     }
 
-    public SignUpPage writeRandomCompany() {
-        writeText(company, generateRandomText());
-        return this;
+    public String writeRandomCompany() {
+        String companyText = "co"+generateRandomText();
+        writeText(company, companyText);
+        return companyText;
     }
 
-    public SignUpPage writeRandomAddress() {
-        writeText(address, generateRandomText());
-        return this;
+    public String writeRandomAddress() {
+        String addressText = "a1"+generateRandomText();
+        writeText(address, addressText);
+        return addressText;
     }
 
-    public SignUpPage writeRandomAddress2() {
-        writeText(address2, generateRandomText());
-        return this;
+    public String writeRandomAddress2() {
+        String address2Text = "a2"+generateRandomText();
+        writeText(address2, address2Text);
+        return address2Text;
     }
 
-    public SignUpPage writeRandomCountry() {
-        writeText(country, generateRandomCountry());
-        return this;
+    public String writeRandomCountry() {
+        String countryText = generateRandomCountry();
+        writeText(country, countryText);
+        return countryText;
     }
 
-    public SignUpPage writeRandomState() {
-        writeText(state, generateRandomText());
-        return this;
+    public String writeRandomState() {
+        String stateText = "state"+generateRandomText();
+        writeText(state, stateText);
+        return stateText;
     }
 
-    public SignUpPage writeRandomCity() {
-        writeText(city, generateRandomText());
-        return this;
+    public String writeRandomCity() {
+        String cityText = "city"+generateRandomText();
+        writeText(city, cityText);
+        return cityText;
     }
 
-    public SignUpPage writeRandomZipcode(int min, int max) {
-        writeText(zipcode, String.valueOf(generateRandomNumber(min,max)));
-        return this;
+    public String writeRandomZipcode(int min, int max) {
+        String zipcodeText = String.valueOf(generateRandomNumber(min, max));
+        writeText(zipcode, zipcodeText);
+        return zipcodeText;
     }
 
-    public SignUpPage writeRandomMobileNumber(int min , int max) {
-        writeText(mobileNumber, String.valueOf(generateRandomNumber(min,max)));
-        return this;
+    public String writeRandomMobileNumber(int min, int max) {
+        String mobileNumberText = String.valueOf(generateRandomNumber(min, max));
+        writeText(mobileNumber, mobileNumberText);
+        return mobileNumberText;
     }
 
     public AccountCreatedPage clickCreateAccountButton() {

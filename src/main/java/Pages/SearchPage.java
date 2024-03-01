@@ -1,6 +1,7 @@
 package Pages;
 
-import ActionsHelper.Actions;
+import ActionsHelper.MyActions;
+import Pages.Base.BasePage;
 import WaitManager.WaitHelper;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -39,7 +40,7 @@ public class SearchPage extends BasePage {
     }
 
     public boolean areSearchedElementsDisplayedRight(String text) {
-        return Actions.areRightElementsDisplayed(searchedProductsList, text);
+        return MyActions.areRightElementsDisplayed(searchedProductsList, text);
 
     }
 

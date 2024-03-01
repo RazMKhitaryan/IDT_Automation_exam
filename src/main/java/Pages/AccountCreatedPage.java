@@ -1,13 +1,14 @@
 package Pages;
 
+import Pages.Base.BasePage;
 import WaitManager.WaitHelper;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import static ActionsHelper.Actions.clickOnElement;
+import static ActionsHelper.MyActions.clickOnElement;
 
-public class AccountCreatedPage extends BasePage{
+public class AccountCreatedPage extends BasePage {
 
     @FindBy(css = "[data-qa=\"account-created\"]")
     WebElement  accountCreated;

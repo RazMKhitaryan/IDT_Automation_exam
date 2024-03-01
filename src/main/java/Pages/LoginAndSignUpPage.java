@@ -1,12 +1,13 @@
 package Pages;
 
+import Pages.Base.BasePage;
 import Utils.RandomTextUtils;
 import WaitManager.WaitHelper;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import static ActionsHelper.Actions.*;
+import static ActionsHelper.MyActions.*;
 
 
 public class LoginAndSignUpPage extends BasePage {
