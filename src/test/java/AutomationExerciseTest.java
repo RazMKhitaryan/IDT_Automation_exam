@@ -7,13 +7,10 @@ import Components.HeaderComponent;
 import Pages.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.asserts.SoftAssert;
-import org.testng.annotations.Listeners;
-import Listeners.MyListeners;
 import org.testng.annotations.Test;
 
 import static Helpers.ActionsHelper.containsAllWords;
 
-@Listeners(MyListeners.class)
 public class AutomationExerciseTest extends TestBase {
 
     @BeforeMethod(onlyForGroups = "login")
