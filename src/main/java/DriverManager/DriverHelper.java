@@ -28,6 +28,8 @@ public class DriverHelper {
 
     private static final String BROWSER;
     private static final String BASE_URL;
+    private static final String HUB_URL;
+
 
     static {
         try (InputStream inputStream = DriverHelper.class.getClassLoader().getResourceAsStream("config.properties")) {
@@ -38,6 +40,7 @@ public class DriverHelper {
 
         BROWSER = properties.getProperty("BrowserType");
         BASE_URL = properties.getProperty("BaseUrl");
+        HUB_URL = properties.getProperty("HubUrl");
     }
 
     private DriverHelper() {
@@ -66,12 +69,11 @@ public class DriverHelper {
                     break;
 
                 case "remote chrome":
-                    String hubUrl = "http://localhost:4445/wd/hub";
                     DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
                     desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, DriverOptions.chromeOptions());
 
                     try {
-                        WebDriver remoteChromeDriver = new RemoteWebDriver(new URL(hubUrl), desiredCapabilities);
+                        WebDriver remoteChromeDriver = new RemoteWebDriver(new URL(HUB_URL), desiredCapabilities);
                         threadLocal.set(remoteChromeDriver);
                         LOGGER.info("Creating remote chrome driver -------------->");
                     } catch (MalformedURLException e) {
@@ -80,12 +82,11 @@ public class DriverHelper {
                     break;
 
                 case "remote firefox":
-                    hubUrl = "http://localhost:4445/wd/hub";
                     desiredCapabilities = new DesiredCapabilities();
                     desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, DriverOptions.firefoxOptions());
 
                     try {
-                        WebDriver remoteFirefoxDriver = new RemoteWebDriver(new URL(hubUrl), desiredCapabilities);
+                        WebDriver remoteFirefoxDriver = new RemoteWebDriver(new URL(HUB_URL), desiredCapabilities);
                         threadLocal.set(remoteFirefoxDriver);
                         LOGGER.info("Creating remote firefox driver -------------->");
                     } catch (MalformedURLException e) {
@@ -111,6 +112,7 @@ public class DriverHelper {
         WebDriver driverInstance = threadLocal.get();
         if (driverInstance != null) {
             driverInstance.quit();
+            LOGGER.info("Quitting the WebDriver -------------->");
             threadLocal.remove();
         }
     }

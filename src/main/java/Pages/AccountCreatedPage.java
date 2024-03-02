@@ -1,5 +1,6 @@
 package Pages;
 
+import Helpers.ActionsHelper;
 import Pages.Base.BasePage;
 import WaitManager.WaitHelper;
 import org.openqa.selenium.WebElement;
@@ -16,10 +17,11 @@ public class AccountCreatedPage extends BasePage {
     @FindBy(css = "[data-qa=\"continue-button\"]")
     WebElement continueButton;
 
+
     @Override
     protected void isLoaded() throws Error {
-        if (!WaitHelper.waitTillElementVisible(accountCreated) || !WaitHelper.waitTillElementVisible(continueButton)) {
-            throw new Error("account was not created");
+        if (!ActionsHelper.isElementDisplayed(accountCreated) || !ActionsHelper.isElementDisplayed(continueButton)) {
+            throw new Error("Account Created page was not opened");
         }
     }
 
@@ -36,7 +38,8 @@ public class AccountCreatedPage extends BasePage {
 
     @Override
     public AccountCreatedPage openScreen() {
-        return null;
+        driver.get(BASE_URL+getUrl());
+        return this;
     }
 
     public void clickContinueButton() {

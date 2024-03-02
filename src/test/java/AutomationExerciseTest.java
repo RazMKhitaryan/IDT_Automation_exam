@@ -1,3 +1,4 @@
+import Components.FooterComponent;
 import Helpers.CreateUserHelper;
 import Helpers.LoginHelper;
 import Helpers.UserObject;
@@ -6,12 +7,13 @@ import Components.HeaderComponent;
 import Pages.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.asserts.SoftAssert;
-
+import org.testng.annotations.Listeners;
+import Listeners.MyListeners;
 import org.testng.annotations.Test;
 
 import static Helpers.ActionsHelper.containsAllWords;
 
-
+@Listeners(MyListeners.class)
 public class AutomationExerciseTest extends TestBase {
 
     @BeforeMethod(onlyForGroups = "login")
@@ -20,8 +22,8 @@ public class AutomationExerciseTest extends TestBase {
     }
 
 
-    @Test(description = "account creation,login, and delete functionality")
-    public void RegisterUserTest() {
+    @Test(description = "Test Case 1: Register User")
+    public void registerUserTest() {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(new HomePage().init().isHomePageVisible(), "The home page was not displayed");
 
@@ -65,7 +67,7 @@ public class AutomationExerciseTest extends TestBase {
         deleteAccountPage.clickContinueButton();
     }
 
-    @Test(description = "product searching logic verification")
+    @Test(description = "Test Case 9: Search Product")
     public void searchProductTest() {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(new HomePage().init().isHomePageVisible(), "The home page was not displayed");
@@ -83,8 +85,8 @@ public class AutomationExerciseTest extends TestBase {
     }
 
 
-    @Test(description = "Place Order: Login before Checkout", groups = "login")
-    public void loginAndBuyProduct() {
+    @Test(description = "Test Case 16: Place Order: Login before Checkout", groups = "login")
+    public void loginAndBuyProductTest() {
         SoftAssert softAssert = new SoftAssert();
         UserObject userObject = LoginHelper.login();
 
@@ -94,7 +96,8 @@ public class AutomationExerciseTest extends TestBase {
         HeaderComponent headerComponent = new HeaderComponent().init();
         softAssert.assertTrue(headerComponent.getNavBarText().contains("Logged in as " + userObject.getUsername()), " 'Logged in as username' was not displayed");
 
-        String[] productInfo = homePage.clickOnAddToCardButton(3).getProductInfo(1);
+        String[] productInfo = homePage.clickOnAddToCardButton(3)
+                .getProductInfo(1);
         homePage.clickContinueShoppingButton();
         CartPage cartPage = headerComponent.clickOnCartButton();
 
@@ -113,7 +116,7 @@ public class AutomationExerciseTest extends TestBase {
                 .selectExpiryYear()
                 .clickPayButton();
 
-        softAssert.assertEquals(paymentPage.getPaymentMessage().getText(),"Congratulations! Your order has been confirmed!" ,"The payment success message was not displayed");
+        softAssert.assertEquals(paymentPage.getPaymentMessage().getText(), "Congratulations! Your order has been confirmed!", "The payment success message was not displayed");
         headerComponent.clickDeleteAccount();
 
         softAssert.assertEquals(new DeleteAccountPage().init().getAccountDeletedText(), "ACCOUNT DELETED!", "'Account Deleted!' text was not displayed");
@@ -121,5 +124,22 @@ public class AutomationExerciseTest extends TestBase {
     }
 
 
+    @Test(description = "Test Case 25: Verify Scroll Up using 'Arrow' button and Scroll Down functionality")
+    public void scrollUpAndDownTest() {
+        SoftAssert softAssert = new SoftAssert();
+        HomePage homePage = new HomePage().init();
+
+        softAssert.assertTrue(homePage.isHomePageVisible(), "The home page was not displayed");
+
+        FooterComponent footerComponent = new FooterComponent().init();
+        String subscriptionText = footerComponent.scrollToFooter()
+                .getSubscriptionText();
+
+        softAssert.assertEquals(subscriptionText, "SUBSCRIPTION", "the 'SUBSCRIPTION' text was not displayed");
+        homePage.init().clickArrowUp();
+
+        softAssert.assertTrue(homePage.isCarouselTextVisible("Full-Fledged practice website for Automation Engineers"), "the 'Full-Fledged practice website for Automation Engineers' text was not displayed");
+        softAssert.assertAll();
+    }
 }
 

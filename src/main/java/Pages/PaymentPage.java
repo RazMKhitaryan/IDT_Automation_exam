@@ -1,5 +1,6 @@
 package Pages;
 
+import Helpers.ActionsHelper;
 import Pages.Base.BasePage;
 import Utils.RandomTextUtils;
 import WaitManager.WaitHelper;
@@ -34,8 +35,8 @@ public class PaymentPage extends BasePage {
 
     @Override
     protected void isLoaded() throws Error {
-        if (!WaitHelper.waitTillElementVisible(payButton) || !WaitHelper.waitTillElementVisible(cardNumber)) {
-            throw new Error("payment page is not fully loaded.");
+            if (!ActionsHelper.isElementDisplayed(payButton) || !ActionsHelper.isElementDisplayed(cardNumber)) {
+                throw new Error("Payment page is not fully loaded.");
         }
     }
 
@@ -52,7 +53,8 @@ public class PaymentPage extends BasePage {
 
     @Override
     public PaymentPage openScreen() {
-        return null;
+        driver.get(BASE_URL+getUrl());
+        return this;
     }
 
     public PaymentPage writeNameOnCard() {

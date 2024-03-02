@@ -39,14 +39,25 @@ public class CheckoutPage extends BasePage {
 
     @Override
     public CheckoutPage openScreen() {
+        driver.get(BASE_URL + getUrl());
         return null;
     }
 
     @Override
     protected void isLoaded() throws Error {
         if (!WaitHelper.waitTillElementVisible(placeOrder)) {
-            throw new Error("Login and SignUp page is not fully loaded.");
+            throw new Error("Checkout page is not fully loaded.");
         }
+    }
+
+    public CheckoutPage writeComment() {
+        writeText(commentArea, RandomTextUtils.generateRandomText());
+        return this;
+    }
+
+    public PaymentPage clickOnPlaceOrder() {
+        clickOnElement(placeOrder);
+        return new PaymentPage().init();
     }
 
     public String extractProductDetails() {
@@ -97,15 +108,7 @@ public class CheckoutPage extends BasePage {
         return wordsToCheck;
     }
 
-    public CheckoutPage writeComment() {
-        writeText(commentArea, RandomTextUtils.generateRandomText());
-        return this;
-    }
 
-    public PaymentPage clickOnPlaceOrder() {
-        clickOnElement(placeOrder);
-        return new PaymentPage().init();
-    }
 }
 
 

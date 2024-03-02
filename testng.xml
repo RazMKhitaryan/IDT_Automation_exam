@@ -1,9 +1,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="MyTestSuite" parallel="methods" thread-count="3">
+<suite name="MyTestSuite" parallel="methods" thread-count="4">
     <listeners>
         <listener class-name="Listeners.MyListeners" />
     </listeners>
-    <test name="MyTestClass">
+    <test name="AutomationTests">
         <classes>
             <class name="AutomationExerciseTest" />
         </classes>

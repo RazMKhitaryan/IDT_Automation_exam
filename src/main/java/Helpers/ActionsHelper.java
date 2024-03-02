@@ -4,14 +4,15 @@ import DriverManager.DriverHelper;
 import WaitManager.WaitHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 
-public abstract class ActionsHelper {
-    static WebDriver driver = DriverHelper.getInstance().getDriver();
+public class ActionsHelper {
+    private WebDriver driver = DriverHelper.getInstance().getDriver();
     private static final Logger LOGGER = LogManager.getLogger(DriverHelper.class);
 
     public static void clickOnElement(WebElement element) {
@@ -44,14 +45,13 @@ public abstract class ActionsHelper {
         return element.getText().contains(text);
     }
 
-    public static void hoverOnElement(WebElement element) {
+    public void hoverOnElement(WebElement element) {
         Actions actions = new Actions(driver);
         actions.moveToElement(element).perform();
     }
 
     public static boolean containsAllWords(String firstString, String[] secondString) {
 
-        // Check if all words from the modified string are present in the first string
         for (String word : secondString) {
             if (!word.isEmpty() && !firstString.contains(word)) {
                 return false;
@@ -60,4 +60,22 @@ public abstract class ActionsHelper {
 
         return true;
     }
+
+    public static boolean containsEqualString(String firstString, List<String> secondString) {
+        for (String word : secondString) {
+            if (firstString.equals(word)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void scrollToElement(WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
+
+
+    }
 }
+
+

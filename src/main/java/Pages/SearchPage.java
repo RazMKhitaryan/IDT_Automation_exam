@@ -1,8 +1,6 @@
 package Pages;
 
-import Helpers.ActionsHelper;
 import Pages.Base.BasePage;
-import WaitManager.WaitHelper;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -10,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 
 import static Helpers.ActionsHelper.areRightElementsDisplayed;
+import static Helpers.ActionsHelper.isElementDisplayed;
 
 public class SearchPage extends BasePage {
     @FindBy(css = "[class=\"title text-center\"]")
@@ -20,8 +19,8 @@ public class SearchPage extends BasePage {
 
     @Override
     protected void isLoaded() throws Error {
-        if (!WaitHelper.waitTillElementVisible(searchedProductsText)) {
-            throw new Error("Search page was not opened");
+            if (!isElementDisplayed(searchedProductsText)) {
+                throw new Error("Search page was not opened");
         }
     }
 
@@ -33,7 +32,8 @@ public class SearchPage extends BasePage {
 
     @Override
     public SearchPage openScreen() {
-        return null;
+        driver.get(BASE_URL + getUrl());
+        return this;
     }
 
     @Override

@@ -81,8 +81,8 @@ public class SignUpPage extends BasePage {
 
     @Override
     protected void isLoaded() {
-        if (!WaitHelper.waitTillElementVisible(mrGender) || !WaitHelper.waitTillElementVisible(msGender)) {
-            throw new Error("Login and SignUp page is not fully loaded.");
+            if (!isElementDisplayed(mrGender) || !isElementDisplayed(msGender)) {
+                throw new Error("Sign up page is not fully loaded.");
         }
     }
 

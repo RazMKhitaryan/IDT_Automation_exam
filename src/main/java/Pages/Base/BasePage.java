@@ -11,13 +11,10 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public abstract class BasePage<T extends BasePage> extends LoadableComponent {
-    protected static final Logger LOGGER = LogManager.getLogger(DriverHelper.class);
 
     protected WebDriver driver = DriverHelper.getInstance().getDriver();
     Properties properties = new Properties();
-
     InputStream inputStream;
-
 
     {
 
@@ -29,7 +26,6 @@ public abstract class BasePage<T extends BasePage> extends LoadableComponent {
         }
 
     }
-
     protected final String BASE_URL = properties.getProperty("BaseUrl");
 
 
@@ -39,7 +35,6 @@ public abstract class BasePage<T extends BasePage> extends LoadableComponent {
     }
 
     public abstract String getUrl();
-
 
     public abstract T init();
 

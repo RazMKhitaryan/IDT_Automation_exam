@@ -1,11 +1,13 @@
 package Pages;
 
+import Helpers.ActionsHelper;
 import Pages.Base.BasePage;
 import WaitManager.WaitHelper;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static Helpers.ActionsHelper.*;
@@ -30,11 +32,16 @@ public class HomePage extends BasePage {
     @FindBy(css = "[class=\"productinfo text-center\"]")
     List<WebElement> productsInfo;
 
+    @FindBy(css = "[class=\"fa fa-angle-up\"]")
+    WebElement arrowUpButton;
+
+    @FindBy(css = "[class=\"carousel-inner\"] h2")
+    List<WebElement> carouselTextList;
 
     @Override
     protected void isLoaded() {
-        if (!WaitHelper.waitTillElementVisible(carouselIndicator) || !WaitHelper.waitTillElementVisible(featuresItems)) {
-            throw new Error("Home page was not opened");
+            if (!ActionsHelper.isElementDisplayed(carouselIndicator) || !ActionsHelper.isElementDisplayed(featuresItems)) {
+                throw new Error("Home page was not opened");
         }
     }
 
@@ -52,7 +59,8 @@ public class HomePage extends BasePage {
 
     @Override
     public HomePage openScreen() {
-        return null;
+        driver.get(BASE_URL+get());
+        return this;
     }
 
     public boolean isHomePageVisible() {
@@ -60,13 +68,12 @@ public class HomePage extends BasePage {
     }
 
     public HomePage hoverOnProduct(int index) {
-        hoverOnElement(products.get(index));
+        new ActionsHelper().hoverOnElement(products.get(index));
         return this;
     }
 
     public HomePage clickOnAddToCardButton(int index) {
         hoverOnProduct(1);
-        WaitHelper.waitTillElementAppears(addToCardButtons.get(index));
         clickOnElement(addToCardButtons.get(index));
         return this.init();
     }
@@ -86,5 +93,24 @@ public class HomePage extends BasePage {
         String[] productInfoArray = productInfo.split("\\s+");
 
         return productInfoArray;
+    }
+
+
+    public HomePage clickArrowUp() {
+        ActionsHelper.clickOnElement(arrowUpButton);
+        return this;
+    }
+
+    public List<String> getCarouselText() {
+        List<String> textList = new ArrayList<>();
+
+        for (WebElement element : carouselTextList) {
+            textList.add(element.getText());
+        }
+        return textList;
+    }
+
+    public boolean isCarouselTextVisible(String text){
+        return  ActionsHelper.containsEqualString(text,getCarouselText());
     }
 }

@@ -1,11 +1,11 @@
 package Pages;
 
-import Helpers.ActionsHelper;
 import Pages.Base.BasePage;
-import WaitManager.WaitHelper;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import static Helpers.ActionsHelper.*;
 
 public class ProductsPage extends BasePage {
     @FindBy(css = "[class=\"title text-center\"]")
@@ -19,7 +19,7 @@ public class ProductsPage extends BasePage {
 
     @Override
     protected void isLoaded() throws Error {
-        if (!WaitHelper.waitTillElementVisible(searchButton) || !WaitHelper.waitTillElementVisible(allProductsText)) {
+        if (!isElementDisplayed(searchButton) || !isElementDisplayed(allProductsText)) {
             throw new Error("Products page was not opened");
         }
     }
@@ -37,7 +37,8 @@ public class ProductsPage extends BasePage {
 
     @Override
     public ProductsPage openScreen() {
-        return null;
+        driver.get(BASE_URL + getUrl());
+        return this;
     }
 
     public String getAllProductsText() {
@@ -45,12 +46,12 @@ public class ProductsPage extends BasePage {
     }
 
     public SearchPage clickSearchButton() {
-        ActionsHelper.clickOnElement(searchButton);
+        clickOnElement(searchButton);
         return new SearchPage().init();
     }
 
     public ProductsPage searchProduct(String text) {
-        ActionsHelper.writeText(searchInput, text);
+        writeText(searchInput, text);
         return this;
     }
 }

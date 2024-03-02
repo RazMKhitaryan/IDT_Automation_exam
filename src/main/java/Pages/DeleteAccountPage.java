@@ -20,7 +20,7 @@ public class DeleteAccountPage extends BasePage {
     @Override
     protected void isLoaded() throws Error {
         if (!WaitHelper.waitTillElementVisible(accountDeleted)) {
-            throw new Error("account was not deleted");
+            throw new Error("Delete account page was not loaded");
         }
     }
 
@@ -37,7 +37,8 @@ public class DeleteAccountPage extends BasePage {
 
     @Override
     public DeleteAccountPage openScreen() {
-        return null;
+        driver.get(BASE_URL + get());
+        return this;
     }
 
     public String getAccountDeletedText() {

@@ -10,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class UserDataUtils {
+public abstract class UserDataUtils {
 
     public static void writeUserDataInFile(String username, String email, String password, String gender,
                                            String firstName, String lastName, String company, String address,

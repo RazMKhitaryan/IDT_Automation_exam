@@ -1,5 +1,6 @@
 package Pages;
 
+import Helpers.ActionsHelper;
 import Pages.Base.BasePage;
 import Utils.RandomTextUtils;
 import WaitManager.WaitHelper;
@@ -36,8 +37,8 @@ public class LoginAndSignUpPage extends BasePage {
 
     @Override
     protected void isLoaded() throws Error {
-        if (!WaitHelper.waitTillElementVisible(loginButton) || !WaitHelper.waitTillElementVisible(signUpButton)) {
-            throw new Error("Login and SignUp page is not fully loaded.");
+            if (!ActionsHelper.isElementDisplayed(loginButton) || !ActionsHelper.isElementDisplayed(signUpButton)) {
+                throw new Error("Login and SignUp page is not fully loaded.");
         }
     }
 
@@ -54,7 +55,8 @@ public class LoginAndSignUpPage extends BasePage {
 
     @Override
     public LoginAndSignUpPage openScreen() {
-        return null;
+        driver.get(BASE_URL+get());
+        return this;
     }
 
     public String writeRandomName() {

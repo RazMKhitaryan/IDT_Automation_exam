@@ -1,5 +1,6 @@
 package Components;
 
+import Helpers.ActionsHelper;
 import Pages.CartPage;
 import Pages.DeleteAccountPage;
 import Pages.ProductsPage;
@@ -36,8 +37,11 @@ public class HeaderComponent extends BaseComponent {
 
     @Override
     protected void isLoaded() throws Error {
-        WaitHelper.waitTillElementAppears(topNavigationBar);
+        if (!ActionsHelper.isElementDisplayed(topNavigationBar)) {
+            throw new Error("Header is not loaded");
+        }
     }
+
 
     @Override
     public HeaderComponent init() {

@@ -1,5 +1,6 @@
 package Pages;
 
+import Helpers.ActionsHelper;
 import Pages.Base.BasePage;
 import WaitManager.WaitHelper;
 import org.openqa.selenium.WebElement;
@@ -15,8 +16,8 @@ public class CartPage extends BasePage {
 
     @Override
     protected void isLoaded() {
-        if (!WaitHelper.waitTillElementVisible(proceedToCheckoutButton)) {
-            throw new Error("Home page was not opened");
+        if (!ActionsHelper.isElementDisplayed(proceedToCheckoutButton)) {
+            throw new Error("Create page was not opened");
         }
     }
 
@@ -33,7 +34,8 @@ public class CartPage extends BasePage {
 
     @Override
     public CartPage openScreen() {
-        return null;
+        driver.get(BASE_URL + getUrl());
+        return this;
     }
 
     public boolean isCartPageOpened() {
